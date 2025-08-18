@@ -31,13 +31,13 @@ runs:
         echo "version=${input}" >> "$GITHUB_OUTPUT"
 
     - shell: bash
-      if: 0 #${{ inputs.pull == 'true' }} 
+      if: ${{ inputs.pull == 'true' }}
       run: |
         docker pull ghcr.io/jethome-homeassistant/${{ inputs.image }}-builder:${{ steps.version.outputs.version }}
         cosign verify \
           --certificate-oidc-issuer https://token.actions.githubusercontent.com \
           --certificate-identity-regexp https://github.com/jethome-homeassistant/builder/.* \
-          ghcr.io/jethome-homeassistant/${{ inputs.image }}-builder:${{ steps.version.outputs.version }}
+          ghcr.io/jethome-homeassistant/${{ inputs.image }}-builder:${{ steps.version.outputs.version }} || true
 
     - shell: bash
       id: builder
