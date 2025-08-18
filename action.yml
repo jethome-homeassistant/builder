@@ -31,7 +31,7 @@ runs:
         echo "version=${input}" >> "$GITHUB_OUTPUT"
 
     - shell: bash
-      if: ${{ inputs.pull == 'true' }}
+      if: 0 #${{ inputs.pull == 'true' }} 
       run: |
         docker pull ghcr.io/jethome-homeassistant/${{ inputs.image }}-builder:${{ steps.version.outputs.version }}
         cosign verify \
